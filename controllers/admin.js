@@ -3,7 +3,7 @@ const {request, response} = require('express')
 
 
 //Creación
-
+//prueba de commit.
 const createAdmin = async (req = request,
     res = response) => {
     try{
