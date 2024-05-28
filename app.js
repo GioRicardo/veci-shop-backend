@@ -17,10 +17,12 @@ app.use('/api/productos', producto);
 
 const admin = require('./routes/admin')
 const categoria = require('./routes/categoria')
+const subCategoria = require('./routes/subCategoria')
 
 //URI o Endpoint
 app.use('/api/admins', admin)
 app.use('/api/categorias', categoria)
+app.use('/api/sub_categorias', subCategoria)
 
 
 

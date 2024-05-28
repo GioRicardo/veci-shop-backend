@@ -3,12 +3,13 @@ const { request, response } = require('express');
 const Usuario = require('../models/usuario');
 const Producto = require("../models/producto");
 const Categoria = require("../models/categoria");
+const SubCategoria = require("../models/subCategoria");
 /**
  * crear
  */
 const createProducto = async (req = request, res = response) => {
     try {
-        const { usuario, categoria, nombre, descripcion, precio, stock, img } = req.body;
+        const { usuario, sub_categoria, nombre, descripcion, precio, stock, img } = req.body;
 
         const usuarioBD = await Usuario.findOne({
             _id: usuario
@@ -18,17 +19,17 @@ const createProducto = async (req = request, res = response) => {
                 msj: 'No existe el usuario'
             })
         }
-        const categoriaBD = await Categoria.findOne({
-            _id: categoria
+        const categoriaBD = await SubCategoria.findOne({
+            _id: sub_categoria
         })
         if(!categoriaBD){
             return res.status(400).json({
-                msj: 'No existe la categoria'
+                msj: 'No existe la subcategoria'
             })
         }
         const datos = {
             usuario,
-            categoria,
+            sub_categoria,
             nombre,
             descripcion,
             precio,
@@ -85,7 +86,7 @@ const getProductosPorUsuario = async (req = request, res = response) => {
         const productosDB = await Producto.find(query).populate({
             path: 'usuario'
         }).populate({
-            path: 'categoria'
+            path: 'subcategoria'
         });
         return res.json(productosDB)
     }catch(e) {
