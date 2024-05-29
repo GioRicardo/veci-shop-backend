@@ -6,7 +6,9 @@ const  {
     getProductoPorId,
     updateProductoPorId,
     deleteProductoByID,
-    getProductosPorUsuario
+    getProductosPorUsuario,
+    getProductosPorCategoria,
+    getProductosPorSubCategoria
 } = require('../controllers/producto');
 
 const router = Router();
@@ -16,6 +18,8 @@ const router = Router();
  */
 
 router.get('/productos_por_usuario/:id', getProductosPorUsuario);
+router.get('/productos_por_categoria/:id', getProductosPorCategoria);
+router.get('/productos_por_subcategoria/:id', getProductosPorSubCategoria);
 router.get('/', getProductos);
 
 /**
