@@ -7,7 +7,7 @@ const ProductoSchema = Schema({
         ref: 'Usuario',
         required: true
     },
-    categoria:{
+    sub_categoria:{
         type: Schema.Types.ObjectId,
         ref: 'SubCategoria',
         required: true

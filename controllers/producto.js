@@ -86,7 +86,38 @@ const getProductosPorUsuario = async (req = request, res = response) => {
         const productosDB = await Producto.find(query).populate({
             path: 'usuario'
         }).populate({
-            path: 'subcategoria'
+            path: 'sub_categoria'
+        });
+        return res.json(productosDB)
+    }catch(e) {
+        return res.status(500).json({msj: e})
+    }
+}
+
+const getProductosPorSubCategoria = async (req = request, res = response) => {
+    try {
+        const { id } = req.params
+        const query = {"sub_categoria": id}
+        const productosDB = await Producto.find(query).populate({
+            path: 'usuario'
+        }).populate({
+            path: 'sub_categoria'
+        });
+        return res.json(productosDB)
+    }catch(e) {
+        return res.status(500).json({msj: e})
+    }
+}
+
+const getProductosPorCategoria = async (req = request, res = response) => {
+    try {
+        const { id } = req.params
+        const subCategoriasDB = await SubCategoria.find({"categoria": id});
+        const subCategoriasIds = subCategoriasDB.map(subCategoria => subCategoria._id);
+        const productosDB = await Producto.find({sub_categoria: {$in: subCategoriasIds}}).populate({
+            path: 'usuario'
+        }).populate({
+            path: 'sub_categoria'
         });
         return res.json(productosDB)
     }catch(e) {
@@ -180,5 +211,7 @@ module.exports = {
     getProductoPorId,
     updateProductoPorId,
     deleteProductoByID,
-    getProductosPorUsuario
+    getProductosPorUsuario,
+    getProductosPorSubCategoria,
+    getProductosPorCategoria
 }
